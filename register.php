@@ -41,7 +41,7 @@
 
 		if(!isset($error)){
 
-			$hashedpassword = $user->create_hash($password);
+
 
 			try {
 
