@@ -28,7 +28,7 @@ Released: 4.3.13
                 <li><a href="login.php">Login</a></li>
                 <li><a href="news.php">News</a></li>
                 <li><a href="forums.php">Forums</a></li>
-                <li id="active"><a href="forum/ucp.php?mode=register"</a></li>
+                <li id="active"><a href="forum/ucp.php?mode=register">Register</a></li>
             </ul>
         </nav>
         <div class="clearfloat"></div>
