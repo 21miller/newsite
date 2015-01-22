@@ -27,7 +27,7 @@ Released: 4.3.13
             	<li id="active"><a href="index.php">Home</a></li>
                 <li><a href="login.php">Login</a></li>
                 <li><a href="news.php">News</a></li>
-                <li><a href="forums.php">Forums</a></li>
+                <li><a href="/forum/index.php">Forums</a></li>
                 <li><a href="register.php">Register</a></li>
             </ul>
         </nav>
@@ -38,110 +38,53 @@ Released: 4.3.13
             <div class="websiteDescription">
 				
                 <h2>Registration Instructions</h2>
-<script type="text/javascript">
-// <![CDATA[
-	/**
-	* Change language
-	*/
-	function change_language(lang_iso)
-	{
-		document.cookie = '{COOKIE_NAME}_lang=' + lang_iso + '; path={COOKIE_PATH}';
-		document.forms['register'].change_lang.value = lang_iso;
-		document.forms['register'].submit.click();
-	}
-// ]]>
-</script>
+$cp = new custom_profile();
+$error = $cp_data = $cp_error = array();
+        
+// validate and register the custom profile fields
+$cp->submit_cp_field('register', $user->get_iso_lang_id(), $cp_data, $error);
 
-<form method="post" action="{S_UCP_ACTION}" id="register">
+// create an inactive user key to send to them...
+$user_actkey = gen_rand_string(10);
+$key_len = 54 - (strlen($server_url));
+$key_len = ($key_len < 6) ? 6 : $key_len;
+$user_actkey = substr($user_actkey, 0, $key_len);
 
-<div class="panel">
-	<div class="inner">
+// set the user to inactive and the reason to "newly registered"
+$user_type = USER_INACTIVE;
+$user_inactive_reason = INACTIVE_REGISTER;
+$user_inactive_time = time();
 
-	<h2>{SITENAME} - {L_REGISTRATION}</h2>
+// setup the user array for the new user
+$user_row = array(
+    'username'              => $data['username'],
+    'user_password'         => phpbb_hash($data['password']),
+    'user_email'            => $data['email'],
+    'group_id'              => (int) $group_id,
+    'user_timezone'         => (float) $data['tz'],
+    'user_dst'              => $is_dst,
+    'user_lang'             => $data['lang'],
+    'user_type'             => $user_type,
+    'user_actkey'           => $user_actkey,
+    'user_ip'               => $user->ip,
+    'user_regdate'          => time(),
+    'user_inactive_reason'  => $user_inactive_reason,
+    'user_inactive_time'    => $user_inactive_time,
+);
 
-	<fieldset class="fields2">
-	<!-- IF ERROR --><dl><dd class="error">{ERROR}</dd></dl><!-- ENDIF -->
-	<!-- IF L_REG_COND -->
-		<dl><dd><strong>{L_REG_COND}</strong></dd></dl>
-	<!-- ENDIF -->
-	<!-- EVENT ucp_register_credentials_before -->
-	<dl>
-		<dt><label for="username">{L_USERNAME}{L_COLON}</label><br /><span>{L_USERNAME_EXPLAIN}</span></dt>
-		<dd><input type="text" tabindex="1" name="username" id="username" size="25" value="{USERNAME}" class="inputbox autowidth" title="{L_USERNAME}" /></dd>
-	</dl>
-	<dl>
-		<dt><label for="email">{L_EMAIL_ADDRESS}{L_COLON}</label></dt>
-		<dd><input type="email" tabindex="2" name="email" id="email" size="25" maxlength="100" value="{EMAIL}" class="inputbox autowidth" title="{L_EMAIL_ADDRESS}" /></dd>
-	</dl>
-	<dl>
-		<dt><label for="new_password">{L_PASSWORD}{L_COLON}</label><br /><span>{L_PASSWORD_EXPLAIN}</span></dt>
-		<dd><input type="password" tabindex="4" name="new_password" id="new_password" size="25" value="{PASSWORD}" class="inputbox autowidth" title="{L_NEW_PASSWORD}" /></dd>
-	</dl>
-	<dl>
-		<dt><label for="password_confirm">{L_CONFIRM_PASSWORD}{L_COLON}</label></dt>
-		<dd><input type="password"  tabindex="5" name="password_confirm" id="password_confirm" size="25" value="{PASSWORD_CONFIRM}" class="inputbox autowidth" title="{L_CONFIRM_PASSWORD}" /></dd>
-	</dl>
+// Register user...
+$user_id = user_add($user_row, $cp_data);
 
-	<!-- EVENT ucp_register_credentials_after -->
-	<hr />
-
-	<!-- EVENT ucp_register_options_before -->
-	<dl>
-		<dt><label for="lang">{L_LANGUAGE}{L_COLON}</label></dt>
-		<dd><select name="lang" id="lang" onchange="change_language(this.value); return false;" tabindex="6" title="{L_LANGUAGE}">{S_LANG_OPTIONS}</select></dd>
-	</dl>
-
-	<!-- INCLUDE timezone_option.html -->
-
-	<!-- EVENT ucp_register_profile_fields_before -->
-	<!-- IF .profile_fields -->
-		<dl><dd><strong>{L_ITEMS_REQUIRED}</strong></dd></dl>
-
-	<!-- BEGIN profile_fields -->
-		<dl>
-			<dt><label<!-- IF profile_fields.FIELD_ID --> for="{profile_fields.FIELD_ID}"<!-- ENDIF -->>{profile_fields.LANG_NAME}{L_COLON}<!-- IF profile_fields.S_REQUIRED --> *<!-- ENDIF --></label>
-			<!-- IF profile_fields.LANG_EXPLAIN --><br /><span>{profile_fields.LANG_EXPLAIN}</span><!-- ENDIF -->
-			<!-- IF profile_fields.ERROR --><br /><span class="error">{profile_fields.ERROR}</span><!-- ENDIF --></dt>
-			<dd>{profile_fields.FIELD}</dd>
-		</dl>
-	<!-- END profile_fields -->
-	<!-- ENDIF -->
-
-	<!-- EVENT ucp_register_profile_fields_after -->
-	</fieldset>
-	</div>
-</div>
-<!-- IF CAPTCHA_TEMPLATE -->
-	<!-- DEFINE $CAPTCHA_TAB_INDEX = 8 -->
-	<!-- INCLUDE {CAPTCHA_TEMPLATE} -->
-<!-- ENDIF -->
-
-<!-- IF S_COPPA -->
-
-
-<div class="panel">
-	<div class="inner">
-
-	<h4>{L_COPPA_COMPLIANCE}</h4>
-
-	<p>{L_COPPA_EXPLAIN}</p>
-	</div>
-</div>
-<!-- ENDIF -->
-
-<div class="panel">
-	<div class="inner">
-
-	<fieldset class="submit-buttons">
-		{S_HIDDEN_FIELDS}
-		<input type="reset" value="{L_RESET}" name="reset" class="button2" />&nbsp;
-		<input type="submit" tabindex="9" name="submit" id="submit" value="{L_SUBMIT}" class="button1 default-submit-action" />
-		{S_FORM_TOKEN}
-	</fieldset>
-
-	</div>
-</div>
-</form>
+// If creating the user failed, display an error
+if ($user_id === false)
+{
+    trigger_error('NO_USER', E_USER_ERROR);
+}
+                
+$template->assign_vars(array(
+    // If there were any errors, display them, one on each newline.
+    'ERROR'             => (sizeof($error)) ? implode('<br />', $error) : '',
+));
                 
             </div>
             <div class="clearfloat"></div>
