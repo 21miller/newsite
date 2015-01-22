@@ -1,9 +1,4 @@
-<?php //include config
-require_once('../includes/config.php');
 
-//if not logged in redirect to login page
-if(!$user->is_logged_in()){ header('Location: login.php'); }
-?>
 <!doctype html>
 <html lang="en">
 <head>
@@ -15,12 +10,6 @@ if(!$user->is_logged_in()){ header('Location: login.php'); }
 <body>
 
 <div id="wrapper">
-
-	<?php include('menu.php');?>
-	<p><a href="users.php">User Admin Index</a></p>
-
-	<h2>Add User</h2>
-
 	<?php
 
 	//if form has been submitted process it
