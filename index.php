@@ -24,11 +24,11 @@ Released: 4.3.13
     	<h1><a href="">Just a Backpack</a></h1>
         <nav>
         	<ul>
-            	<li id="active"><a href="index.php">Home</a></li>
+            	<li><a href="index.php">Home</a></li>
                 <li><a href="login.php">Login</a></li>
                 <li><a href="news.php">News</a></li>
                 <li><a href="forums.php">Forums</a></li>
-                <li><a href="register.php">Register</a></li>
+                <li id="active"><a href="forum/ucp.php?mode=register"</a></li>
             </ul>
         </nav>
         <div class="clearfloat"></div>
