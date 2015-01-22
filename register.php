@@ -37,54 +37,34 @@ Released: 4.3.13
             
             <div class="websiteDescription">
 				
-                <h2>Registration Instructions</h2>
-$cp = new custom_profile();
-$error = $cp_data = $cp_error = array();
-        
-// validate and register the custom profile fields
-$cp->submit_cp_field('register', $user->get_iso_lang_id(), $cp_data, $error);
 
-// create an inactive user key to send to them...
-$user_actkey = gen_rand_string(10);
-$key_len = 54 - (strlen($server_url));
-$key_len = ($key_len < 6) ? 6 : $key_len;
-$user_actkey = substr($user_actkey, 0, $key_len);
 
-// set the user to inactive and the reason to "newly registered"
-$user_type = USER_INACTIVE;
-$user_inactive_reason = INACTIVE_REGISTER;
-$user_inactive_time = time();
+<h2>Registration Instructions</h2>
+<?php
+define('IN_PHPBB', true);
+$phpbb_root_path = 'forum/';
 
-// setup the user array for the new user
-$user_row = array(
-    'username'              => $data['username'],
-    'user_password'         => phpbb_hash($data['password']),
-    'user_email'            => $data['email'],
-    'group_id'              => (int) $group_id,
-    'user_timezone'         => (float) $data['tz'],
-    'user_dst'              => $is_dst,
-    'user_lang'             => $data['lang'],
-    'user_type'             => $user_type,
-    'user_actkey'           => $user_actkey,
-    'user_ip'               => $user->ip,
-    'user_regdate'          => time(),
-    'user_inactive_reason'  => $user_inactive_reason,
-    'user_inactive_time'    => $user_inactive_time,
-);
+$phpEx = substr(strrchr(__FILE__, '.'), 1);
+include($phpbb_root_path . 'common.php');
+include($phpbb_root_path . 'includes/functions_user.php');
+include($phpbb_root_path . 'includes/ucp/ucp_register.php');
 
-// Register user...
-$user_id = user_add($user_row, $cp_data);
+$password='pword';
+$username='uname';
+$username_clean=strtolower($username);
+$user_email='email@email.net';
 
-// If creating the user failed, display an error
-if ($user_id === false)
-{
-    trigger_error('NO_USER', E_USER_ERROR);
-}
-                
-$template->assign_vars(array(
-    // If there were any errors, display them, one on each newline.
-    'ERROR'             => (sizeof($error)) ? implode('<br />', $error) : '',
-));
+    $sql_ary = array(
+        'username'          => $username,
+        'username_clean'    => $username_clean,
+        'user_password'     => phpbb_hash($password),
+        'user_email'        => $user_email,
+        'user_email_hash'   => crc32(strtolower($user_email)) . strlen($user_email),
+        'group_id'          => 2,
+        'user_type'         => 0,
+    );
+user_add($sql_ary);
+?>
                 
             </div>
             <div class="clearfloat"></div>
