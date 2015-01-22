@@ -28,7 +28,7 @@ Released: 4.3.13
                 <li><a href="login.php">Login</a></li>
                 <li><a href="news.php">News</a></li>
                 <li><a href="forums.php">Forums</a></li>
-                <li><a href="register.php">Register</a></li>>
+                <li><a href="register.php">Register</a></li>
             </ul>
         </nav>
         <div class="clearfloat"></div>
@@ -39,46 +39,28 @@ Released: 4.3.13
 				
                 <h2>Registration Instructions</h2>
 <?php
-				define('IN_PHPBB', true);
-$phpbb_root_path = (defined('PHPBB_ROOT_PATH')) ? PHPBB_ROOT_PATH : '/forum/';
-
+define('IN_PHPBB', true);
+$phpbb_root_path = (defined('PHPBB_ROOT_PATH')) ? PHPBB_ROOT_PATH : './';
 $phpEx = substr(strrchr(__FILE__, '.'), 1);
 include($phpbb_root_path . 'common.' . $phpEx);
-include($phpbb_root_path . 'includes/functions_display.' . $phpEx);
 include($phpbb_root_path . 'includes/functions_user.' . $phpEx);
 
-// Start session management
-$user->session_begin();
-$auth->acl($user->data);
-$user->setup('');
-
-//Do something here to retrieve get/post variables 
-
-// Validate input
-$invalid_username = validate_username($username);
-$invalid_email = validate_email($email);
-$invalid_password = validate_password($password);
-if($invalid_username || $invalid_password || $invalid_email){ //handle error
-}
-
-//Build user_row array
 $user_row = array(
-    'username'              => $username,
-    'user_password'         => phpbb_hash($password),
-    'user_email'            => $email,
-    'group_id'              => 2,
-    'user_lang'             => 'en_us',
-    'user_type'             => USER_NORMAL,
-    'user_ip'               => $user->ip,
-    'user_regdate'          => time(),
+        'username'                      => "his username",
+        'user_password'                 => phpbb_hash("new_password"),
+        'user_email'                    => "mail@ofuser.com",
+        'group_id'                      => 2,
+        'user_timezone'                 => 1,
+        'user_dst'                      => 1,
+        'user_lang'                     => "en",
+        'user_type'                     => 0,
+        'user_actkey'                   => "",
+        'user_ip'                       => "",
+        'user_regdate'                  => time(),
+        'user_inactive_reason'          => 0,
+        'user_inactive_time'            => 0,
 );
-
-//register and handle error
-$user_id = user_add($user_row);
-if ($user_id === false){
-    //handle error
-} 
-?>   
+user_add($user_row, $cp_data); ?>
                 
             </div>
             <div class="clearfloat"></div>
