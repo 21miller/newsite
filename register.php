@@ -38,6 +38,7 @@ Released: 4.3.13
             <div class="websiteDescription">
 				
                 <h2>Registration Instructions</h2>
+<?php
 				define('IN_PHPBB', true);
 $phpbb_root_path = (defined('PHPBB_ROOT_PATH')) ? PHPBB_ROOT_PATH : '/forum/';
 
@@ -76,7 +77,8 @@ $user_row = array(
 $user_id = user_add($user_row);
 if ($user_id === false){
     //handle error
-}    
+} 
+?>   
                 
             </div>
             <div class="clearfloat"></div>
