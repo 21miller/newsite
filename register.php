@@ -40,8 +40,8 @@ Released: 4.3.13
 
 
 <h2>Registration Instructions</h2>
-
-	<form action='' method='post'>
+<div id="wrapper">
+<form action='' method='post'>
 
 		<p><label>Username</label><br />
 		<input type='text' name='username' value='<?php if(isset($error)){ echo $_POST['username'];}?>'></p>
@@ -57,7 +57,8 @@ Released: 4.3.13
 		
 		<p><input type='submit' name='submit' value='Add User'></p>
 
-	</form>
+</form>
+</div>
 
 <?php
 
