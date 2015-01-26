@@ -1,45 +1,43 @@
 <?php
 
 define('IN_PHPBB', true);
-$phpbb_root_path = 'forum/';
+$phpbb_root_path = (defined('PHPBB_ROOT_PATH')) ? PHPBB_ROOT_PATH : 'forum/';
+
 $phpEx = substr(strrchr(__FILE__, '.'), 1);
 include($phpbb_root_path . 'common.' . $phpEx);
+include($phpbb_root_path . 'includes/functions_display.' . $phpEx);
+include($phpbb_root_path . 'includes/functions_user.' . $phpEx);
 
+// Start session management
+$user->session_begin();
+$auth->acl($user->data);
+$user->setup('');
 
+//Do something here to retrieve get/post variables 
 
-        $username = $_POST[username];
-        $password = $_POST[password];
-        $email_address = $_POST[email];
+// Validate input
+$invalid_username = validate_username($username);
+$invalid_email = validate_email($email);
+$invalid_password = validate_password($password);
+if($invalid_username || $invalid_password || $invalid_email){ //handle error
+}
 
+//Build user_row array
+$user_row = array(
+    'username'              => $username,
+    'user_password'         => phpbb_hash($password),
+    'user_email'            => $email,
+    'group_id'              => 2,
+    'user_lang'             => 'en_us',
+    'user_type'             => USER_NORMAL,
+    'user_ip'               => $user->ip,
+    'user_regdate'          => time(),
+);
 
-    include('forums/common.php');
-    require('forums/includes/functions_user.php');
-
-    // Start session management
-    $user->session_begin();
-    $auth->acl($user->data);
-    $user->setup('viewtopic');
-
-        global $config, $db, $user, $auth, $template, $phpbb_root_path, $phpEx;
-
-        $user_row = array(
-            'username'                => $username,                //REQUIRED IN FORM
-            'user_password'            => md5($password),            //REQUIRED IN FORM
-            'user_email'            => $email_address,            //REQUIRED IN FORM
-            'group_id'                =>    0,//(int) $group_id,
-            'user_timezone'            => $timezone = date(Z) / 3600,//(float) $data[tz],
-            'user_dst'                => date(I),//$is_dst,
-            'user_lang'                => $user->lang_name,//$data[lang],
-            'user_type'                => USER_NORMAL,//$user_type,
-            'user_actkey'            => '',//$user_actkey,
-            'user_ip'                => $user->ip,
-            'user_regdate'            => time(),
-            'user_inactive_reason'    => 0,//$user_inactive_reason,
-            'user_inactive_time'    => 0,//$user_inactive_time,
-        );
-
-
-    // Register user...
-        $user_id = user_add($user_row);
+//register and handle error
+$user_id = user_add($user_row);
+if ($user_id === false){
+    //handle error
+}    
 
     ?>
