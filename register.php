@@ -8,46 +8,52 @@ include($phpbb_root_path . 'common.' . $phpEx);
 include($phpbb_root_path . 'includes/functions_display.' . $phpEx);
 include($phpbb_root_path . 'includes/functions_user.' . $phpEx);
 
-// Start session management
-$user->session_begin();
-$auth->acl($user->data);
-$user->setup('');
+$cp = new custom_profile();
+$error = $cp_data = $cp_error = array();
+        
+// validate and register the custom profile fields
+$cp->submit_cp_field('register', $user->get_iso_lang_id(), $cp_data, $error);
 
-//Do something here to retrieve get/post variables
+// create an inactive user key to send to them...
+$user_actkey = gen_rand_string(10);
+$key_len = 54 - (strlen($server_url));
+$key_len = ($key_len < 6) ? 6 : $key_len;
+$user_actkey = substr($user_actkey, 0, $key_len);
 
-{
-echo('Register<br><form action="forum/ucp.php" method="post" enctype="multipart/form-data">
-<label for="username">Username:</label><input type="text" name="username" /><br />
-<label for="password">Password:</label><input type="password" name="password" /><br />
-<label for="pf_eveapikey">EvE Api key:</label><input type="text" name="pf_eveapikey" /><br />
-<label for="password">email:</label><input type="text" name="email" /><br />
-<input type="submit" value="register" name="register" />
-</form>');
-}
+// set the user to inactive and the reason to "newly registered"
+$user_type = USER_INACTIVE;
+$user_inactive_reason = INACTIVE_REGISTER;
+$user_inactive_time = time();
 
-// Validate input
-$invalid_username = validate_username($username);
-$invalid_email = validate_email($email);
-$invalid_password = validate_password($password);
-if($invalid_username || $invalid_password || $invalid_email){ //handle error
-}
-
-//Build user_row array
+// setup the user array for the new user
 $user_row = array(
-    'username'              => $username,
-    'user_password'         => phpbb_hash($password),
-    'user_email'            => $email,
-    'group_id'              => 2,
-    'user_lang'             => 'en_us',
-    'user_type'             => USER_NORMAL,
+    'username'              => $data['username'],
+    'user_password'         => phpbb_hash($data['password']),
+    'user_email'            => $data['email'],
+    'group_id'              => (int) $group_id,
+    'user_timezone'         => (float) $data['tz'],
+    'user_dst'              => $is_dst,
+    'user_lang'             => $data['lang'],
+    'user_type'             => $user_type,
+    'user_actkey'           => $user_actkey,
     'user_ip'               => $user->ip,
     'user_regdate'          => time(),
+    'user_inactive_reason'  => $user_inactive_reason,
+    'user_inactive_time'    => $user_inactive_time,
 );
 
-//register and handle error
-$user_id = user_add($user_row);
-if ($user_id === false){
-    //handle error
-}    
+// Register user...
+$user_id = user_add($user_row, $cp_data);
+
+// If creating the user failed, display an error
+if ($user_id === false)
+{
+    trigger_error('NO_USER', E_USER_ERROR);
+}
+                
+$template->assign_vars(array(
+    // If there were any errors, display them, one on each newline.
+    'ERROR'             => (sizeof($error)) ? implode('<br />', $error) : '',
+));
 
     ?>
