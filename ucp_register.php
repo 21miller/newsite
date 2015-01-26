@@ -18,7 +18,7 @@ if (!defined('IN_PHPBB'))
 {
 	exit;
 }
-
+require($phpbb_root_path . 'common.' . $phpEx);
 /**
 * ucp_register
 * Board registration

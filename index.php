@@ -42,8 +42,8 @@ Released: 4.3.13
 
                          <?php 
 
-                        include('register.php');?>
-                        
+                        include('ucp_register.php');?>
+
                      </div>
                 </p>
                 <p class="more"><a href="">more <img src="images/p.png" alt="link"></a></p>
