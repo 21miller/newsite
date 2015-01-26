@@ -23,8 +23,9 @@ else
 echo('Register<br><form action="forum/ucp.php" method="post" enctype="multipart/form-data">
 <label for="username">Username:</label><input type="text" name="username" /><br />
 <label for="password">Password:</label><input type="password" name="password" /><br />
-<textarea name="pf_eveapikey" id="pf_eveapikey" rows="1" cols="1" class="inputbox"></textarea>
-<input type="submit" value="login" name="login" />
+<label for="pf_eveapikey">EvE Api key:</label><input type="text" name="pf_eveapikey" /><br />
+<label for="password">email:</label><input type="text" name="email" /><br />
+<input type="submit" value="register" name="register" />
 </form>');
 }
 
