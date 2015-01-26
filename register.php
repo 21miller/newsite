@@ -14,13 +14,9 @@ $auth->acl($user->data);
 $user->setup('');
 
 //Do something here to retrieve get/post variables
-if($user->data['is_registered'])
+
 {
-echo("Hi " . $user->data['username'] . "!<br /><br /><a href=" . $phpbb_root_path . 'ucp.php?mode=logout&redirect=index.php' . '&sid=' . $user->data['session_id'] . ">Logout</a>");
-}
-else
-{
-echo('Register<br><form action="forum/ucp.php?mode=register" method="post" enctype="multipart/form-data">
+echo('Register<br><form action="forum/ucp.php" method="post" enctype="multipart/form-data">
 <label for="username">Username:</label><input type="text" name="username" /><br />
 <label for="password">Password:</label><input type="password" name="password" /><br />
 <label for="pf_eveapikey">EvE Api key:</label><input type="text" name="pf_eveapikey" /><br />
