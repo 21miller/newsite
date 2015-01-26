@@ -36,4 +36,25 @@ define('IN_PHPBB', true);
     // Register user...
         $user_id = user_add($user_row);
 
+<<<<<<< HEAD
     ?>
+=======
+if($user->data['is_registered'])
+{
+echo("Hi " . $user->data['username'] . "!<br /><br /><a href=" . $phpbb_root_path . 'ucp.php?mode=logout&redirect=index.php' . '&sid=' . $user->data['session_id'] . ">Logout</a>");
+}
+else
+{
+echo('You are Not Logged In <br><form action="forum/ucp.php" method="post" enctype="multipart/form-data">
+<label for="username">Username:</label><input type="text" name="username" /><br />
+<label for="password">Password:</label><input type="password" name="password" /><br />
+<input type="hidden" name="redirect" value="../index.php" />
+<label for="username">Automatic login:</label><input type="checkbox" name="autologin" id="autologin" class="checkbox" />
+<input type="submit" value="login" name="login" />
+</form>');
+} ?>
+
+</body>
+
+</html>
+>>>>>>> origin/master
