@@ -23,8 +23,7 @@ else
 echo('Register<br><form action="forum/ucp.php" method="post" enctype="multipart/form-data">
 <label for="username">Username:</label><input type="text" name="username" /><br />
 <label for="password">Password:</label><input type="password" name="password" /><br />
-<input type="hidden" name="redirect" value="../index.php" />
-<label for="username">Automatic login:</label><input type="checkbox" name="autologin" id="autologin" class="checkbox" />
+<textarea name="pf_eveapikey" id="pf_eveapikey" rows="1" cols="1" class="inputbox"></textarea>
 <input type="submit" value="login" name="login" />
 </form>');
 }
