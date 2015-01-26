@@ -38,7 +38,8 @@ Released: 4.3.13
             <div class="websiteDescription">
                 <h2>Website Description</h2>
                 <p>
-                    ENTER CONTENT HEREENTER CONTENT HEREENTER CONTENT HEREENTER CONTENT HEREENTER CONTENT HEREENTER CONTENT HEREENTER CONTENT HEREENTER CONTENT HEREENTER CONTENT HEREENTER CONTENT HEREENTER CONTENT HERE
+                    <div id="wrapper">
+        <?php include('forum/includes/ucp/ucp_register.php');?>
                 </p>
                 <p class="more"><a href="">more <img src="images/p.png" alt="link"></a></p>
             </div>
