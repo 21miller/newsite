@@ -41,8 +41,8 @@ Released: 4.3.13
                     <div id="wrapper">
 
                          <?php 
-                         require_once('forum/common.php');
-                         include('forum/ucp.php');?>
+
+                        include('register.php');?>
                      </div>
                 </p>
                 <p class="more"><a href="">more <img src="images/p.png" alt="link"></a></p>
