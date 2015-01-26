@@ -14,9 +14,20 @@ $auth->acl($user->data);
 $user->setup('');
 
 //Do something here to retrieve get/post variables
- $username = $_POST[username];
-        $password = $_POST[password];
-        $email_address = $_POST[email];
+if($user->data['is_registered'])
+{
+echo("Hi " . $user->data['username'] . "!<br /><br /><a href=" . $phpbb_root_path . 'ucp.php?mode=logout&redirect=index.php' . '&sid=' . $user->data['session_id'] . ">Logout</a>");
+}
+else
+{
+echo('Register<br><form action="forum/ucp.php" method="post" enctype="multipart/form-data">
+<label for="username">Username:</label><input type="text" name="username" /><br />
+<label for="password">Password:</label><input type="password" name="password" /><br />
+<input type="hidden" name="redirect" value="../index.php" />
+<label for="username">Automatic login:</label><input type="checkbox" name="autologin" id="autologin" class="checkbox" />
+<input type="submit" value="login" name="login" />
+</form>');
+}
 
 // Validate input
 $invalid_username = validate_username($username);
