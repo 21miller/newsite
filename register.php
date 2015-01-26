@@ -37,7 +37,6 @@ $user->setup('ucp');
 
 // Setting a variable to let the style designer know where he is...
 $template->assign_var('S_IN_UCP', true);
-
 $module = new p_master();
 $default = false;
 
@@ -107,7 +106,7 @@ switch ($mode)
 			trigger_error($message);
 		}
 
-		redirect(append_sid("{$index.$phpEx"));
+		redirect(append_sid("$index.$phpEx"));
 	break;
 
 	case 'terms':
