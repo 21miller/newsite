@@ -20,7 +20,7 @@ echo("Hi " . $user->data['username'] . "!<br /><br /><a href=" . $phpbb_root_pat
 }
 else
 {
-echo('Register<br><form action="forum/ucp.php" method="post" enctype="multipart/form-data">
+echo('Register<br><form action="forum/ucp.php?mode=register" method="post" enctype="multipart/form-data">
 <label for="username">Username:</label><input type="text" name="username" /><br />
 <label for="password">Password:</label><input type="password" name="password" /><br />
 <label for="pf_eveapikey">EvE Api key:</label><input type="text" name="pf_eveapikey" /><br />
