@@ -39,7 +39,10 @@ Released: 4.3.13
                 <h2>Website Description</h2>
                 <p>
                     <div id="wrapper">
-                         <?php include('forum/ucp.php');?>
+
+                         <?php 
+                         require_once('forum/common.php');
+                         include('forum/ucp.php');?>
                      </div>
                 </p>
                 <p class="more"><a href="">more <img src="images/p.png" alt="link"></a></p>
