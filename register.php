@@ -13,7 +13,10 @@ $user->session_begin();
 $auth->acl($user->data);
 $user->setup('');
 
-//Do something here to retrieve get/post variables 
+//Do something here to retrieve get/post variables
+ $username = $_POST[username];
+        $password = $_POST[password];
+        $email_address = $_POST[email];
 
 // Validate input
 $invalid_username = validate_username($username);
