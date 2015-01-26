@@ -2,7 +2,7 @@
 <?php
 
 define('IN_PHPBB', true);
-$phpbb_root_path = './phpBB3/';
+$phpbb_root_path = 'forum/';
 $phpEx = substr(strrchr(__FILE__, '.'), 1);
 include($phpbb_root_path . 'common.' . $phpEx);
 
@@ -13,7 +13,6 @@ $user->setup(); ?>
 <html>
 
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
 <meta name="GENERATOR" content="Microsoft FrontPage 4.0">
 <meta name="ProgId" content="FrontPage.Editor.Document">
 <title>Login</title>
