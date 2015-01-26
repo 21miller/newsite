@@ -42,7 +42,7 @@ Released: 4.3.13
 
                          <?php 
 
-                        include('ucp_register.php');?>
+                        include('register.php');?>
 
                      </div>
                 </p>

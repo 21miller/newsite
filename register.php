@@ -37,8 +37,8 @@ $user->setup('ucp');
 
 // Setting a variable to let the style designer know where he is...
 //$template->assign_var('S_IN_UCP', true);
-$module = new p_master();
-$default = false;
+//$module = new p_master();
+//$default = false;
 
 // Basic "global" modes
 switch ($mode)
