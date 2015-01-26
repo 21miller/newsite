@@ -27,8 +27,8 @@ Released: 4.3.13
             	<li id="active"><a href="index.php">Home</a></li>
                 <li><a href="news.php">News</a></li>
                 <li><a href="forums.php">Forums</a></li>
-                <li><a href="forum/ucp.php?mode=register">Register</a></li>
-				<li><a href="forum/ucp.php?mode=login">Login</a></li>
+                <li><a href="register.php?mode=register">Register</a></li>
+				<li><a href="register.php?mode=login">Login</a></li>
             </ul>
         </nav>
         <div class="clearfloat"></div>
@@ -43,6 +43,7 @@ Released: 4.3.13
                          <?php 
 
                         include('register.php');?>
+                        
                      </div>
                 </p>
                 <p class="more"><a href="">more <img src="images/p.png" alt="link"></a></p>
