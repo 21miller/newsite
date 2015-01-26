@@ -26,7 +26,7 @@ Released: 4.3.13
         	<ul>
             	<li id="active"><a href="index.php">Home</a></li>
                 <li><a href="news.php">News</a></li>
-                <li><a href="forums.php">Forums</a></li>
+                <li><a href="/forum/index.php">Forums</a></li>
                 <li><a href="register.php?mode=register">Register</a></li>
 				<li><a href="register.php?mode=login">Login</a></li>
             </ul>

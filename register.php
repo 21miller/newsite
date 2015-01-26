@@ -28,7 +28,7 @@ echo("Hi " . $user->data['username'] . "!<br /><br /><a href=" . $phpbb_root_pat
 }
 else
 {
-echo('You are Not Logged In <br><form action="$phpbb_root_path/ucp.php" method="post" enctype="multipart/form-data">
+echo('You are Not Logged In <br><form action="forum/ucp.php" method="post" enctype="multipart/form-data">
 <label for="username">Username:</label><input type="text" name="username" /><br />
 <label for="password">Password:</label><input type="password" name="password" /><br />
 <input type="hidden" name="redirect" value="../index.php" />
